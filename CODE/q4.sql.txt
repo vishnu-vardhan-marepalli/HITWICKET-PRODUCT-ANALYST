@@ -1,0 +1,49 @@
+-- Create the users table
+CREATE TABLE users (
+    id INT PRIMARY KEY,
+    user_id INT,
+    createtime INT,
+    last_active_at INT
+);
+
+-- Insert sample data into the users table
+INSERT INTO users (id, user_id, createtime, last_active_at)
+VALUES
+(1, 33, 1283678600, 1383678600),
+(2, 222, 1383709905, 1483709905),
+(3, 354, 1520420200, 1620420200),
+(4, 97886, 1520820200, 1620820200),
+(5, 3532, 1540820200, 1640820200),
+(6, 858, 1549082020, 1649082020),
+(7, 34322, 1569082020, 1669082020),
+(8, 7687, 1582082020, 1682082020);
+
+-- Create the payments table
+CREATE TABLE payments (
+    id INT PRIMARY KEY,
+    user_id INT,
+    status INT,
+    amount INT,
+    gateway VARCHAR(20),
+    timestamp INT
+);
+
+-- Insert sample data into the payments table
+INSERT INTO payments (id, user_id, status, amount, gateway, timestamp)
+VALUES
+(1, 17, 2, 50, 'paytm', 1383678600),
+(2, 64, 2, 100, 'google', 1383709905),
+(3, 33, 2, 250, 'apple', 1583071000),
+(4, 628, 0, 49, 'upi', 1520820200),
+(5, 533, 1, 99, 'google', 1540820200),
+(6, 464, 2, 150, 'apple', 1549082020),
+(7, 39, 2, 7900, 'upi', 1569082020),
+(8, 103, 2, 4900, 'tapjoy', 1582082020),
+(9, 293, 3, 1500, 'upi', 1585082020);
+
+SELECT u.user_id
+FROM users u
+LEFT JOIN payments p ON u.user_id = p.user_id
+WHERE p.user_id IS NULL
+    AND u.last_active_at > 1483209000
+    AND u.createtime <= 1397673000;

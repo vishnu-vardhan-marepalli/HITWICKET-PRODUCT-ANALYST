@@ -1,0 +1,29 @@
+-- Create the table
+CREATE TABLE matches (
+    id INT PRIMARY KEY,
+    home_team_id INT,
+    away_team_id INT,
+    type VARCHAR(10),
+    timestamp INT
+);
+
+-- Insert sample data
+INSERT INTO matches (id, home_team_id, away_team_id, type, timestamp)
+VALUES
+(1, 17, 629, 'F5', 1383678600),
+(2, 64, 211, 'League', 1383709905),
+(3, 34, 209, 'League', 1520420200),
+(4, 628, 229, 'F5', 1520820200),
+(5, 533, 142, 'F5', 1540820200),
+(6, 464, 66, 'F5', 1549082020),
+(7, 39, 203, 'F5', 1569082020),
+(8, 103, 58, 'Alliance', 1582082020),
+(9, 293, 86, 'League', 1585082020);
+
+-- Retrieve the list of teams that played at least 3 home matches of type 'F5' between specified timestamps
+SELECT home_team_id, COUNT(*) AS matches
+FROM matches
+WHERE type = 'F5'
+    AND timestamp BETWEEN 1583001000 AND 1583778600
+GROUP BY home_team_id
+HAVING COUNT(*) >= 3;

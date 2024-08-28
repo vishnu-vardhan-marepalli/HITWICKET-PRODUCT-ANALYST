@@ -1,0 +1,29 @@
+-- Create the table
+CREATE TABLE transactions (
+    id INT PRIMARY KEY,
+    user_id INT,
+    status INT,
+    amount INT,
+    gateway VARCHAR(20),
+    timestamp INT
+);
+
+-- Insert sample data
+INSERT INTO transactions (id, user_id, status, amount, gateway, timestamp)
+VALUES
+(1, 17, 2, 50, 'paytm', 1383678600),
+(2, 64, 2, 100, 'google', 1383709905),
+(3, 33, 2, 250, 'apple', 1583071000),
+(4, 628, 0, 49, 'upi', 1520820200),
+(5, 533, 1, 99, 'google', 1540820200),
+(6, 464, 2, 150, 'apple', 1549082020),
+(7, 39, 2, 7900, 'upi', 1569082020),
+(8, 103, 2, 4900, 'tapjoy', 1582082020),
+(9, 293, 3, 1500, 'upi', 1585082020);
+
+-- Retrieve unique users with successful payments between specified timestamps
+SELECT DISTINCT user_id
+FROM transactions
+WHERE status = 2
+    AND gateway != 'tapjoy'
+    AND timestamp BETWEEN 1583001000 AND 1583778600;
